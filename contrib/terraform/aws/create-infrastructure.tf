@@ -15,26 +15,26 @@ data "aws_availability_zones" "available" {}
 * and AWS IAM Roles for Kubernetes Deployment
 */
 
-module "aws-vpc" {
-  source = "modules/vpc"
-
-  aws_cluster_name = "${var.aws_cluster_name}"
-  aws_vpc_cidr_block = "${var.aws_vpc_cidr_block}"
-  aws_avail_zones="${slice(data.aws_availability_zones.available.names,0,2)}"
-  aws_cidr_subnets_private="${var.aws_cidr_subnets_private}"
-  aws_cidr_subnets_public="${var.aws_cidr_subnets_public}"
-  default_tags="${var.default_tags}"
-
-}
+#module "aws-vpc" {
+#  source = "modules/vpc"
+#
+#  aws_cluster_name = "${var.aws_cluster_name}"
+#  aws_vpc_cidr_block = "${var.aws_vpc_cidr_block}"
+#  aws_avail_zones="${slice(data.aws_availability_zones.available.names,0,2)}"
+#  aws_cidr_subnets_private="${var.aws_cidr_subnets_private}"
+#  aws_cidr_subnets_public="${var.aws_cidr_subnets_public}"
+#  default_tags="${var.default_tags}"
+#
+#}
 
 
 module "aws-elb" {
   source = "modules/elb"
 
   aws_cluster_name="${var.aws_cluster_name}"
-  aws_vpc_id="${module.aws-vpc.aws_vpc_id}"
+#  aws_vpc_id="${module.aws-vpc.aws_vpc_id}"
   aws_avail_zones="${slice(data.aws_availability_zones.available.names,0,2)}"
-  aws_subnet_ids_public="${module.aws-vpc.aws_subnet_ids_public}"
+#  aws_subnet_ids_public="${module.aws-vpc.aws_subnet_ids_public}"
   aws_elb_api_port = "${var.aws_elb_api_port}"
   k8s_secure_api_port = "${var.k8s_secure_api_port}"
   default_tags="${var.default_tags}"

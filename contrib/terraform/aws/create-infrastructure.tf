@@ -3,9 +3,9 @@ terraform {
 }
 
 provider "aws" {
-    access_key = "${var.AWS_ACCESS_KEY_ID}"
-    secret_key = "${var.AWS_SECRET_ACCESS_KEY}"
-    region = "${var.AWS_DEFAULT_REGION}"
+#    access_key = "${var.AWS_ACCESS_KEY_ID}"
+#    secret_key = "${var.AWS_SECRET_ACCESS_KEY}"
+#    region = "${var.AWS_DEFAULT_REGION}"
 }
 
 data "aws_availability_zones" "available" {}
@@ -17,7 +17,6 @@ data "aws_availability_zones" "available" {}
 
 module "aws-vpc" {
   source = "modules/vpc"
-
   aws_cluster_name = "${var.aws_cluster_name}"
   aws_vpc_cidr_block = "${var.aws_vpc_cidr_block}"
   aws_avail_zones="${slice(data.aws_availability_zones.available.names,0,2)}"
